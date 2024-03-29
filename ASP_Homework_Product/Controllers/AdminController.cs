@@ -1,6 +1,7 @@
 ﻿using ASP_Homework_Product.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 
 namespace ASP_Homework_Product.Controllers
 {
@@ -8,10 +9,12 @@ namespace ASP_Homework_Product.Controllers
     {
         private readonly IProductRepository _productRepository;
         private readonly IOrderRepository _orderRepository;
-        public AdminController(IProductRepository productRepository, IOrderRepository orderRepository)
+        private readonly IRolesRepository _rolesRepository;
+        public AdminController(IProductRepository productRepository, IOrderRepository orderRepository, IRolesRepository rolesRepository)
         {
             _productRepository = productRepository;
             _orderRepository = orderRepository;
+            _rolesRepository = rolesRepository;
         }
         public IActionResult Index()
         {
@@ -33,7 +36,17 @@ namespace ASP_Homework_Product.Controllers
         }
         public IActionResult Roles()
         {
+            var roles = _rolesRepository.GetRoles();
+            return View(roles);
+        }
+        public IActionResult AddRole()
+        {
             return View();
+        }
+        public IActionResult DeleteRole(Guid id)
+        {
+            _rolesRepository.Delete(id);
+            return RedirectToAction("Roles");
         }
         public IActionResult Products()
         {
@@ -48,6 +61,21 @@ namespace ASP_Homework_Product.Controllers
             var order = _orderRepository.TryGetById(id);
             order.Status = status;
             return RedirectToAction("Orders");
+        }
+        public IActionResult SaveRole(string name)
+        {
+            var roles = _rolesRepository.GetRoles();
+            if (roles.FirstOrDefault(r => r.Name == name) != null)
+            {
+				ModelState.AddModelError("", "Такая роль уже есть!");
+			}
+            if (ModelState.IsValid)
+            {
+                _rolesRepository.Add(new Role { Name = name });
+                return RedirectToAction("Roles");
+            }
+            //return RedirectToAction("AddRole");
+            return View("AddRole");
         }
     }
 }
