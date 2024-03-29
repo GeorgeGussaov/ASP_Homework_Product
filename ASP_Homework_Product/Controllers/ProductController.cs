@@ -51,8 +51,7 @@ namespace ASP_Homework_Product.Controllers
 			if(ModelState.IsValid)
 			{
 				Product newProduct = new Product(product.Name, product.Cost, product.Description, "#"); //этот продукст создается чтобы инициализировать unicId.
-																										//Если передать product,
-																										//то при переходе на стр товара выводится первый товар
+																										//Если передать product, то при переходе на стр товара выводится первый товар
 				_productRepository.Add(newProduct);
 				return RedirectToAction("Products", "Admin");
 			}

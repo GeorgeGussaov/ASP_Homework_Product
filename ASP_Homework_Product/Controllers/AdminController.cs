@@ -1,13 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ASP_Homework_Product.Models;
+using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace ASP_Homework_Product.Controllers
 {
     public class AdminController : Controller
     {
         private readonly IProductRepository _productRepository;
-        public AdminController(IProductRepository productRepository)
+        private readonly IOrderRepository _orderRepository;
+        public AdminController(IProductRepository productRepository, IOrderRepository orderRepository)
         {
             _productRepository = productRepository;
+            _orderRepository = orderRepository;
         }
         public IActionResult Index()
         {
@@ -15,9 +19,15 @@ namespace ASP_Homework_Product.Controllers
         }
         public IActionResult Orders()
         {
-            return View();
+            var orders = _orderRepository.GetOrders();
+            return View(orders);
         }
-        public IActionResult Users()
+		public IActionResult EditOrderStatus(int id)
+		{
+            var order = _orderRepository.GetOrders()[id]; 
+			return View(order);
+		}
+		public IActionResult Users()
         {
             return View();
         }
@@ -30,6 +40,14 @@ namespace ASP_Homework_Product.Controllers
             var products = _productRepository.GetProducts(); 
 
             return View(products);
+        }
+
+        [HttpPost]
+        public IActionResult ChangeStatus(Guid id, OrderStatuses status)
+        {
+            var order = _orderRepository.TryGetById(id);
+            order.Status = status;
+            return RedirectToAction("Orders");
         }
     }
 }
