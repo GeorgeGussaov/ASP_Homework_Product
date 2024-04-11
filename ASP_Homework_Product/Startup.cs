@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 
 namespace ASP_Homework_Product
 {
@@ -44,6 +45,8 @@ namespace ASP_Homework_Product
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseSerilogRequestLogging();
 
             app.UseAuthorization();
 
