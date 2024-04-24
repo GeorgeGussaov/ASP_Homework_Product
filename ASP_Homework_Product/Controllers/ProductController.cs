@@ -30,7 +30,8 @@ namespace ASP_Homework_Product.Controllers
 		public IActionResult Delete(int id)
 		{
 			_productRepository.Delete(id);
-			return RedirectToAction("Products", "Admin");
+			//return RedirectToAction("Products", "Admin");
+			return Redirect("/admin/admin/products");
 		}
 
 
@@ -40,7 +41,9 @@ namespace ASP_Homework_Product.Controllers
 			if (ModelState.IsValid)
 			{
 				_productRepository.ChangeProduct(id, product.Name, product.Cost, product.Description);
-				return RedirectToAction("Products", "Admin");
+				//return RedirectToAction("Products", "Admin");
+				return Redirect("/admin/admin/products");
+				
 			}
 			return RedirectToAction("Edit");
 		}
@@ -53,8 +56,9 @@ namespace ASP_Homework_Product.Controllers
 				Product newProduct = new Product(product.Name, product.Cost, product.Description, "#"); //этот продукст создается чтобы инициализировать unicId.
 																										//Если передать product, то при переходе на стр товара выводится первый товар
 				_productRepository.Add(newProduct);
-				return RedirectToAction("Products", "Admin");
-			}
+                //return RedirectToAction("Products", "Admin");
+                return Redirect("/admin/admin/products");
+            }
 			return RedirectToAction("Add");
 		}
 	}

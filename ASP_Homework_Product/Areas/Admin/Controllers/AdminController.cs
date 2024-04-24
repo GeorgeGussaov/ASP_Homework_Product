@@ -3,8 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 
-namespace ASP_Homework_Product.Controllers
+namespace ASP_Homework_Product.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class AdminController : Controller
     {
         private readonly IProductRepository _productRepository;
@@ -25,12 +26,12 @@ namespace ASP_Homework_Product.Controllers
             var orders = _orderRepository.GetOrders();
             return View(orders);
         }
-		public IActionResult EditOrderStatus(int id)
-		{
-            var order = _orderRepository.GetOrders()[id]; 
-			return View(order);
-		}
-		public IActionResult Users()
+        public IActionResult EditOrderStatus(int id)
+        {
+            var order = _orderRepository.GetOrders()[id];
+            return View(order);
+        }
+        public IActionResult Users()
         {
             return View();
         }
@@ -50,7 +51,7 @@ namespace ASP_Homework_Product.Controllers
         }
         public IActionResult Products()
         {
-            var products = _productRepository.GetProducts(); 
+            var products = _productRepository.GetProducts();
 
             return View(products);
         }
@@ -67,8 +68,8 @@ namespace ASP_Homework_Product.Controllers
             var roles = _rolesRepository.GetRoles();
             if (roles.FirstOrDefault(r => r.Name == name) != null)
             {
-				ModelState.AddModelError("", "Такая роль уже есть!");
-			}
+                ModelState.AddModelError("", "Такая роль уже есть!");
+            }
             if (ModelState.IsValid)
             {
                 _rolesRepository.Add(new Role { Name = name });
