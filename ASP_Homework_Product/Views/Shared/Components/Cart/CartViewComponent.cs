@@ -15,7 +15,7 @@ namespace ASP_Homework_Product.Views.Shared.Components.Cart
 
         public IViewComponentResult Invoke()
         {
-            var cart = _cartRepository.TryGetByUId(_constants.GetUserId);
+            var cart = _cartRepository.TryGetByUId(_constants.GetUserId());
             string cntProducts = cart?.Amount.ToString() ?? null;
             return View("Cart", cntProducts);
         }

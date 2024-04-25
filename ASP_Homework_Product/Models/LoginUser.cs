@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace ASP_Homework_Product.Models
 {
@@ -10,5 +11,7 @@ namespace ASP_Homework_Product.Models
         [Required(ErrorMessage = "Введите пароль")]
         public string Password { get; set; }
         public bool CheckBox { get; set; }
+        public Guid Id { get; }
+        public LoginUser() { Id = Guid.NewGuid(); }
     }
 }

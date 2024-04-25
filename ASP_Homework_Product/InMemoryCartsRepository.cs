@@ -9,12 +9,12 @@ namespace ASP_Homework_Product
     public class InMemoryCartsRepository : ICartsRepository
     {
         private List<Cart> Carts = new List<Cart>();
-        public Cart TryGetByUId(string userId)
+        public Cart TryGetByUId(Guid userId)
         {
             return Carts.FirstOrDefault(x => x.UserId == userId);
         }
 
-        public void Add(Product product, string userId)
+        public void Add(Product product, Guid userId)
         {
             var CartIsExist = TryGetByUId(userId);
             if(CartIsExist == null)
@@ -51,7 +51,7 @@ namespace ASP_Homework_Product
             }
         }
 
-        public void Delete(Product product, string userId)
+        public void Delete(Product product, Guid userId)
         {
             var Cart = TryGetByUId(userId);
             CartItem CartItem = Cart.CartItems.FirstOrDefault(pr => pr.Product.Id == product.Id);
@@ -59,7 +59,7 @@ namespace ASP_Homework_Product
             else Cart.CartItems.Remove(CartItem);
         }
 
-        public void Clear(string userId)
+        public void Clear(Guid userId)
         {
             var Cart = TryGetByUId(userId);
             Carts.Remove(Cart);
@@ -69,10 +69,10 @@ namespace ASP_Homework_Product
 
     public interface ICartsRepository
     {
-        public Cart TryGetByUId(string userId);
-        public void Add(Product product, string userId);
-        public void Delete(Product product, string userId);
-        public void Clear(string userId);
+        public Cart TryGetByUId(Guid userId);
+        public void Add(Product product, Guid userId);
+        public void Delete(Product product, Guid userId);
+        public void Clear(Guid userId);
 
     }
 }

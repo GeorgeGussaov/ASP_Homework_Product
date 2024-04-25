@@ -25,10 +25,10 @@ namespace ASP_Homework_Product.Controllers
         {
             if(ModelState.IsValid)
             {
-				Cart cart = _cartRepository.TryGetByUId(_constants.GetUserId);
+				Cart cart = _cartRepository.TryGetByUId(_constants.GetUserId());
 				order.Cart = cart;
 				_orderRepository.Add(order);
-				_cartRepository.Clear(_constants.GetUserId);
+				_cartRepository.Clear(_constants.GetUserId());
 				return View(order);
 			}
             return RedirectToAction("Index");

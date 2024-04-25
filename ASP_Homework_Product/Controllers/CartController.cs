@@ -16,25 +16,25 @@ namespace ASP_Homework_Product.Controllers
         }
         public IActionResult Index()
         {
-            var cart = _cartRepository.TryGetByUId(_constants.GetUserId);
+            var cart = _cartRepository.TryGetByUId(_constants.GetUserId());
             return View(cart);
         }
         public IActionResult Add(int productId)
         {
             var product = _productRepository.GetProduct(productId);
-            _cartRepository.Add(product, _constants.GetUserId);
+            _cartRepository.Add(product, _constants.GetUserId());
             return RedirectToAction("Index");
         }
         public IActionResult Delete(int productId)
         {
             var product = _productRepository.GetProduct(productId);
-            _cartRepository.Delete(product, _constants.GetUserId);
+            _cartRepository.Delete(product, _constants.GetUserId());
             return RedirectToAction("Index");
         }
 
         public IActionResult Clear()
         {
-            _cartRepository.Clear(_constants.GetUserId);
+            _cartRepository.Clear(_constants.GetUserId());
             return RedirectToAction("Index");
         }
     }

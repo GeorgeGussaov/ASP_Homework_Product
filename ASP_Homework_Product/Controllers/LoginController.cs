@@ -5,6 +5,11 @@ namespace ASP_Homework_Product.Controllers
 {
     public class LoginController : Controller
     {
+        private readonly IConstants _Constants;
+        public LoginController(IConstants constants)
+        {
+            _Constants = constants;
+        }
         public IActionResult Index()
         {
             return View();
@@ -13,7 +18,16 @@ namespace ASP_Homework_Product.Controllers
         [HttpPost]
         public IActionResult Enter(LoginUser user)
         {
-            if(ModelState.IsValid) return View();
+            if (ModelState.IsValid)
+            {
+                var logUser = _Constants.LoginUser(user);
+                if (logUser == null)
+                {
+                    ModelState.AddModelError("", "Введен неправильный логин или пароль");
+                    return View("Index");
+                }
+                return View();
+            }
 			return RedirectToAction("Index");
         }
     }
