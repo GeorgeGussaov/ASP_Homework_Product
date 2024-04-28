@@ -28,7 +28,7 @@ namespace ASP_Homework_Product.Controllers
                 }
                 return View();
             }
-			return RedirectToAction("Index");
+			return View("Index");
         }
     }
 }

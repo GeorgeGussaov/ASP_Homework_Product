@@ -11,16 +11,21 @@ namespace ASP_Homework_Product.Areas.Admin.Controllers
         private readonly IProductRepository _productRepository;
         private readonly IOrderRepository _orderRepository;
         private readonly IRolesRepository _rolesRepository;
-        public AdminController(IProductRepository productRepository, IOrderRepository orderRepository, IRolesRepository rolesRepository)
+        private readonly IConstants _constants;
+        public AdminController(IProductRepository productRepository, IOrderRepository orderRepository, IRolesRepository rolesRepository, IConstants constants)
         {
             _productRepository = productRepository;
             _orderRepository = orderRepository;
             _rolesRepository = rolesRepository;
+            _constants = constants;
         }
         public IActionResult Index()
         {
             return View();
         }
+
+
+
         public IActionResult Orders()
         {
             var orders = _orderRepository.GetOrders();
@@ -31,10 +36,49 @@ namespace ASP_Homework_Product.Areas.Admin.Controllers
             var order = _orderRepository.GetOrders()[id];
             return View(order);
         }
+
+
+
+
         public IActionResult Users()
+        {
+            return View(_constants.GetUsers());
+        }
+        public IActionResult UserPage(Guid id)
+        {
+            var user = _constants.GetUserById(id);
+            return View(user);
+        }
+        public IActionResult AddUserForm()
         {
             return View();
         }
+        public IActionResult ChangeUserDataForm(Guid id)
+        {
+            var user = _constants.GetUserById(id);
+            return View(user);
+        }
+        public IActionResult ChangeUserPassForm(Guid id)
+        {
+            var user = _constants.GetUserById(id);
+            return View(user);
+        }
+        public IActionResult ChangeUserRoleForm(Guid id)
+        {
+            var user = _constants.GetUserById(id);
+
+            return View(user);
+        }
+        public IActionResult DeleteUser(Guid id)
+        {
+            _constants.DeleteUser(id);
+            return RedirectToAction("Users");
+        }
+
+
+
+
+
         public IActionResult Roles()
         {
             var roles = _rolesRepository.GetRoles();
@@ -49,6 +93,12 @@ namespace ASP_Homework_Product.Areas.Admin.Controllers
             _rolesRepository.Delete(id);
             return RedirectToAction("Roles");
         }
+
+
+
+
+
+
         public IActionResult Products()
         {
             var products = _productRepository.GetProducts();
@@ -63,6 +113,7 @@ namespace ASP_Homework_Product.Areas.Admin.Controllers
             order.Status = status;
             return RedirectToAction("Orders");
         }
+
         public IActionResult SaveRole(string name)
         {
             var roles = _rolesRepository.GetRoles();
@@ -78,5 +129,39 @@ namespace ASP_Homework_Product.Areas.Admin.Controllers
             //return RedirectToAction("AddRole");
             return View("AddRole");
         }
+
+        public IActionResult AddUser(LoginUser user)
+        {
+            if (ModelState.IsValid)
+            {
+                _constants.RegisterUser(user);
+                return RedirectToAction("Users");
+            }
+            return View("AddUserForm");
+        }
+        [HttpPost]
+        public IActionResult ChangeUserData(LoginUser user)
+        {
+            _constants.ChangeUserDataInfo(user.Id, user.Name, user.Login);
+            return RedirectToAction("Users");
+            
+        }
+        public IActionResult ChangeUserPass(LoginUser user)
+        {
+            _constants.ChangeUserPass(user.Id, user.Password);
+            return RedirectToAction("Users");
+        }
+
+        public IActionResult ChangeUserRole(LoginUser user)
+        {
+            if (!_rolesRepository.CheckRole(user.Role.Name))
+            {
+                ModelState.AddModelError("", "Такой роли не существует");
+                return View("ChangeUserRoleForm");
+            }
+            _constants.ChangeUserRole(user.Id, user.Role.Name);
+            return RedirectToAction("Users");
+        }
+
     }
 }

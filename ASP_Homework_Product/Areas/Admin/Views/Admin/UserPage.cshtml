@@ -1,0 +1,23 @@
+﻿@model LoginUser
+<div class="col-9 text-center">
+	<h2>Список ролей</h2>
+	<table width="500" class="table">
+		<tr>
+			<th>Имя</th>
+			<td>@Model.Name</td>
+		</tr>
+		<tr>
+			<th>Логин(почта)</th>
+			<td>@Model.Login</td>
+		</tr>
+		<tr>
+			<th>Роль</th>
+			<td>@Model.Role.Name</td>
+		</tr>
+
+	</table>
+	<a class="btn btn-primary" asp-controller="Admin" asp-action="ChangeUserDataForm" asp-route-id="@Model.Id">Редактировать данные</a>
+	<a class="btn btn-primary" asp-controller="Admin" asp-action="ChangeUserPassForm" asp-route-id="@Model.Id">Изменить пароль</a>
+	<a class="btn btn-primary" asp-controller="Admin" asp-action="ChangeUserRoleForm" asp-route-id="@Model.Id">Изменить роль</a>
+	<a class="btn btn-primary" asp-controller="Admin" asp-action="DeleteUser" asp-route-id="@Model.Id">Удалить пользователя</a>
+</div>

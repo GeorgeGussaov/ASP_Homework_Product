@@ -1,8 +1,7 @@
-﻿@model RegistryUser
-<form method="post" asp-controller="registry" asp-action="enter">
+﻿@model LoginUser
+<form method="post" asp-area="Admin" asp-controller="Admin" asp-action="AddUser">
+    <div class="text-danger font-weight-bold" asp-validation-summary="All"></div>
     <div class="text-center">
-        <h2>Регистрация</h2>
-        <div class="text-danger font-weight-bold" asp-validation-summary="All"></div>
         <div>
             <label asp-for="Name">Имя</label>
             <input asp-for="Name">
@@ -23,14 +22,8 @@
             <span asp-validation-for="Password"></span>
         </div>
         <br>
-        <div>
-            <label asp-for="RepeatPassword">Повторите пароль</label>
-            <input asp-for="RepeatPassword" type="password">
-            <span asp-validation-for="RepeatPassword"></span>
-        </div>
-        
-        <br>
-        <button class="btn btn-info mt-3" type="submit">Зарегистрироваться</button>
+
+        <button class="btn btn-info mt-3" type="submit">Добавить</button>
         <br>
     </div>
 </form>

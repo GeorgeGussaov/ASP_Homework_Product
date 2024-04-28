@@ -1,0 +1,31 @@
+﻿@model LoginUser
+<form method="post" asp-controller="Admin" asp-action="ChangeUserPass">
+    <div class="text-danger font-weight-bold" asp-validation-summary="All"></div>
+    <div class="text-center">
+        <div>
+            <label asp-for="Password">Новый пароль</label>
+            <input asp-for="Password">
+            <span asp-validation-for="Password"></span>
+        </div>
+        <br>
+
+        <div class="invisible">
+            <label asp-for="Name">Имя</label>
+            <input asp-for="Name">
+            <span asp-validation-for="Name"></span>
+
+            <label asp-for="Login">Логин</label>
+            <input asp-for="Login">
+            <span asp-validation-for="Login"></span>
+
+            <label asp-for="Id">id</label>
+            <input asp-for="Id">
+            <span asp-validation-for="Id"></span>
+        </div>
+  
+      
+
+        <button class="btn btn-info mt-3" type="submit">Изменить</button>
+        <br>
+    </div>
+</form>

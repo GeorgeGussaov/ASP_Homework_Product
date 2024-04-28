@@ -9,5 +9,9 @@ namespace ASP_Homework_Product.Models
 
         public string Name { get; set; }
         public Guid Id { get; set; }
+        public Role()
+        {
+            Id = Guid.NewGuid();
+        }
     }
 }

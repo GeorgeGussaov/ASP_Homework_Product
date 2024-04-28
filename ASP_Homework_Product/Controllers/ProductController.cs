@@ -45,7 +45,7 @@ namespace ASP_Homework_Product.Controllers
 				return Redirect("/admin/admin/products");
 				
 			}
-			return RedirectToAction("Edit");
+			return View("Edit");
 		}
 
 		[HttpPost]
@@ -59,7 +59,7 @@ namespace ASP_Homework_Product.Controllers
                 //return RedirectToAction("Products", "Admin");
                 return Redirect("/admin/admin/products");
             }
-			return RedirectToAction("Add");
+			return View("Add");
 		}
 	}
 }

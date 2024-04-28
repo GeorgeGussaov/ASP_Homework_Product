@@ -15,6 +15,12 @@
             <span asp-validation-for="Password"></span>
         </div>
         <br>
+
+        <div class="invisible">
+            <label asp-for="Name">Пароль</label>
+            <input asp-for="Name" type="text" value="-">    <!--В этой форме имя нам не нужно, но без него ругается, поэтому создаем невидимый див с любым именем-->
+            <span asp-validation-for="Name"></span>
+        </div>
         
 
         <input type="checkbox" name="checkBox">Запомнить меня?

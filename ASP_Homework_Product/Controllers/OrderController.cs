@@ -31,7 +31,7 @@ namespace ASP_Homework_Product.Controllers
 				_cartRepository.Clear(_constants.GetUserId());
 				return View(order);
 			}
-            return RedirectToAction("Index");
+            return View("Index");
         }
     }
 }

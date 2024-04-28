@@ -8,7 +8,7 @@ namespace ASP_Homework_Product
 {
     public class InMemoryRoles : IRolesRepository
     {
-        private List<Role> Roles = new List<Role>();
+        private List<Role> Roles = new List<Role>() { new Role() { Name = "User"} }; //пусть в списке ролей по умолчанию будет роль пользователя.
         public List<Role> GetRoles() { return Roles; }
         public Role TryGetById(Guid id)
         {
@@ -23,6 +23,11 @@ namespace ASP_Homework_Product
             var role = TryGetById(id);
             Roles.Remove(role);
         }
+        public bool CheckRole(string roleName)
+        {
+            if(Roles.FirstOrDefault(r => r.Name == roleName) != null) return true;
+            return false;
+        }
     }
 
     public interface IRolesRepository
@@ -30,6 +35,8 @@ namespace ASP_Homework_Product
         public List<Role> GetRoles();
         public void Add(Role role);
         public void Delete(Guid id);
+        public bool CheckRole(string roleName);
 
-	}
+
+    }
 }
