@@ -41,7 +41,7 @@
 						<td>@Model[i].Email</td>
 						<td>@Model[i].Date</td>
 						<td>@Model[i].Time</td>
-						<td><a asp-controller="Admin" asp-action="EditOrderStatus" asp-route-id="@i">Изменить статус заказа</a></td>
+						<td><a asp-controller="Admin" asp-action="EditOrderStatus" asp-route-id="@i" class="btn btn-primary">Изменить статус заказа</a></td>
 					</tr>
 				}
 			</table>

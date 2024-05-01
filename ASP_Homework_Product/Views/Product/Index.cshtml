@@ -2,16 +2,44 @@
 @{
     ViewData["Title"] = "Product Page";
 }
-
-<div class="text-center">
-    <div>
-        <img src="@Model.ImgLink" class="w-25"></img>
-        <p>@Model.Name</p>
-        <p>@Model.Cost</p>
-        <p>@Model.Description</p>
-        <a href="/home/index" class="btn btn-info">Продолжить покупки</a>
+<style>
+    .Main{
+        display:flex;
+        justify-content:space-between;
+        border-radius:30px;
+    }
+    p{
+        color:whitesmoke;
+        font-weight:700;
+    }
+    .Info{
+        
+        margin-left: 30px;
+        display:flex;
+        flex-direction:column;
+    }
+    .Description{
+        border-left:solid white 1px;
+        margin-left: 20px;
+        margin-right:auto;
+        padding: 10px;
+        
+    }
+</style>
+<div>
+    <div class="Main bg-dark">
+        <div class="Info w-25">
+            <img src="@Model.ImgLink">
+            <p>Название: @Model.Name</p>
+            <p>Цена: @Model.Cost руб.</p>
+        </div>
+        <div class="Description">
+            <p>@Model.Description</p>
+        </div>
+    </div>
+    <div class="text-center m-3">
+        <a href="/home/index" class="btn btn-primary">Продолжить покупки</a>
         <br>
-        <a href="/Cart/Add?productId=@Model.Id" class="btn btn-info mt-3">Добавить в корзину</a>
-
+        <a href="/Cart/Add?productId=@Model.Id" class="btn btn-primary mt-3">Добавить в корзину</a>
     </div>
 </div>

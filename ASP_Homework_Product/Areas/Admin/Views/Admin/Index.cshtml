@@ -1,9 +1,20 @@
-﻿<div class="col-3">
-	<a asp-area="Admin" asp-controller="Admin" asp-action="Orders">Заказы</a>
+﻿<style>
+	.lateral{
+		width:50px;
+		display:flex;
+		flex-direction:column;
+		text-align:center;
+	}
+	.lateralCell{
+		width:150px;
+	}
+</style>
+<div class="col-3 lateral">
+	<a asp-area="Admin" asp-controller="Admin" asp-action="Orders" class="lateralCell btn btn-dark">Заказы</a>
 	<br>
-	<a asp-area="Admin" asp-controller="Admin" asp-action="Users">Пользователи</a>
+	<a asp-area="Admin" asp-controller="Admin" asp-action="Users" class="lateralCell btn btn-dark">Пользователи</a>
 	<br>
-	<a asp-area="Admin" asp-controller="Admin" asp-action="Roles">Роли</a>
+	<a asp-area="Admin" asp-controller="Admin" asp-action="Roles" class="lateralCell btn btn-dark">Роли</a>
 	<br>
-	<a asp-area="Admin" asp-controller="Admin" asp-action="Products">Продукты</a>
+	<a asp-area="Admin" asp-controller="Admin" asp-action="Products" class="lateralCell btn btn-dark">Продукты</a>
 </div>

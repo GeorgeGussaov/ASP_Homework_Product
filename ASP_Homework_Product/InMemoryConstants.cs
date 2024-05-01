@@ -7,7 +7,7 @@ namespace ASP_Homework_Product
 {
     public class InMemoryConstants : IConstants
     {
-        private List<LoginUser> Users = new List<LoginUser>() { new LoginUser() { Name="asd", Login="as@as", Password="1234", Id=Guid.NewGuid(), Role=new Role() {Name="User" } } };
+        private List<LoginUser> Users = new List<LoginUser>() { new LoginUser() { Name="DefoltUser", Login="Defolt@def", Password="1234", Id=Guid.NewGuid(), Role=new Role() {Name="User" } } };
         private LoginUser CurrentUser = null;
         private Guid SpareId = Guid.NewGuid();
         //public Guid UserId = Guid.NewGuid();

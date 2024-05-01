@@ -4,7 +4,8 @@
 	<div class="col-9 text-center">
 			
 		<h2>Список Продуктов</h2>
-		<a href="/Product/Add">Добавить новый продукт</a>
+		<a href="/Product/Add" class="btn btn-success">Добавить новый продукт</a>
+		<br>
 		<table width="500" class="table">
 			<tr>
 				<th>№</th>
@@ -16,11 +17,11 @@
 				{
 					<tr>
 						<td>@(cnt++)</td>
-						<td><a href="/Product/Index/@product.Id">@product.Name</a></td>
+						<td><a href="/Product/Index/@product.Id" class="btn btn-dark">@product.Name</a></td>
 						<td>@product.Cost</td>
-						<td><a href="/Product/Edit/@product.Id">Редактировать</a></td>
+						<td><a href="/Product/Edit/@product.Id" class="btn btn-primary">Редактировать</a></td>
 						<td>
-							<a class="btn btn-primary" asp-area="" asp-controller="Product" asp-action="Delete" asp-route-id="@product.Id">Удалить</a>
+							<a class="btn btn-danger" asp-area="" asp-controller="Product" asp-action="Delete" asp-route-id="@product.Id">Удалить</a>
 							<!-- Кнопка-триггер модального окна -->
 							<a type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Launch demo modal</a>
 

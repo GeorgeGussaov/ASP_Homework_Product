@@ -10,28 +10,29 @@
     }
     else
     {
-        <div class="row">
-            <div class="col-2 text-center align-middle">Игра</div>
-            <div class="col-2">Цена, руб</div>
-            <div class="col-2">Кол-во копий</div>
-            <div class="col-2">Стоимость, руб</div>
-            <div class="col-2">Увеличить кол-во копий</div>
-            <div class="col-2">Уменьшить кол-во копий</div>
-        
-        @foreach(CartItem item in Model.CartItems)
-        {
-           
-            <div class="col-2">@item.Product.Name</div>
-            <div class="col-2">@item.Product.Cost</div>
-            <div class="col-2">@item.Amount</div>
-            <div class="col-2">Цена: @item.Cost</div>
-            <a href="/Cart/Add?productId=@item.Product.Id" class="col-2 btn btn-info mt-3">+</a>
-            <a href="/Cart/Delete?productId=@item.Product.Id" class="col-2 btn btn-info mt-3">-</a>
-        }
-        </div>
+        <table class="table">
+            <tr>
+                <th>Игра</th>
+                <th>Цена, руб</th>
+                <th>Кол-во копий</th>
+                <th>Стоимость, руб</th>
+            </tr>
+            @foreach(CartItem item in Model.CartItems)
+            {
+                <tr>
+                    <td>@item.Product.Name</td>
+                    <td>@item.Product.Cost</td>
+                    <td>@item.Amount</td>
+                    <td>Цена: @item.Cost</td>
+                    <td><a asp-controller="Cart" asp-action="Add" asp-route-productId="@item.Product.Id" class="btn btn-primary">+</a></td>
+                    <td><a asp-controller="Cart" asp-action="Delete" asp-route-productId="@item.Product.Id" class="btn btn-primary">-</a></td>
+                </tr>
+            }
+        </table>
+
         <h3>Итоговая сумма: @Model.Cost руб.</h3>
-        <a href="/Cart/Clear" class="col-2 btn btn-info mt-3">Очистить корзину</a>
-        <a href="/Order/Index" class="col-2 btn btn-info mt-3">Оформить заказ</a>
+        <a asp-controller="Cart" asp-action="Clear" class="col-2 btn btn-danger mt-3">Очистить корзину</a>
+        <a asp-controller="Order" asp-action="Index" class="col-2 btn btn-success mt-3">Оформить заказ</a>
     }
 
 </div>
