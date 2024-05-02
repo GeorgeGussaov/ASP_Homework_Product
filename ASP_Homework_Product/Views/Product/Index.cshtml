@@ -38,8 +38,8 @@
         </div>
     </div>
     <div class="text-center m-3">
-        <a href="/home/index" class="btn btn-primary">Продолжить покупки</a>
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Продолжить покупки</a>
         <br>
-        <a href="/Cart/Add?productId=@Model.Id" class="btn btn-primary mt-3">Добавить в корзину</a>
+        <a asp-controller="Cart" asp-action="Add" asp-route-productId="@Model.Id" class="btn btn-primary mt-3">Добавить в корзину</a>
     </div>
 </div>

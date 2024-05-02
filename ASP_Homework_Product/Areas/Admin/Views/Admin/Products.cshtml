@@ -17,9 +17,9 @@
 				{
 					<tr>
 						<td>@(cnt++)</td>
-						<td><a href="/Product/Index/@product.Id" class="btn btn-dark">@product.Name</a></td>
+						<td><a asp-area="" asp-controller="Product" asp-action="Index" asp-route-id="@product.Id" class="btn btn-dark">@product.Name</a></td>
 						<td>@product.Cost</td>
-						<td><a href="/Product/Edit/@product.Id" class="btn btn-primary">Редактировать</a></td>
+						<td><a asp-area="" asp-controller="Product" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-primary">Редактировать</a></td>
 						<td>
 							<a class="btn btn-danger" asp-area="" asp-controller="Product" asp-action="Delete" asp-route-id="@product.Id">Удалить</a>
 							<!-- Кнопка-триггер модального окна -->

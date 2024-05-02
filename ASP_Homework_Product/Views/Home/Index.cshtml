@@ -87,7 +87,7 @@
     <div class="Row">
         @foreach(var product in Model){
             <div class="Column card bg-secondary p-2 rounded">
-                <a class="btn-dark p-2" href="/Product/Index/@product.Id">
+                <a class="btn-dark p-2" asp-controller="Product" asp-action="Index" asp-route-id="@product.Id">
                     <img src="@product.ImgLink" class="game_img">
                     <p>@product.Name</p>
                 </a>
