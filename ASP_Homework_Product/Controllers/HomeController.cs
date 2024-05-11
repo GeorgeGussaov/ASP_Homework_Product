@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ASP_Homework_Product.Models;
+using OnlineShop.Db;
 
 namespace ASP_Homework_Product.Controllers
 {
@@ -26,7 +27,20 @@ namespace ASP_Homework_Product.Controllers
         public IActionResult Index()
         {
             var products = _productRepository.GetProducts();
-            return View(products);
+            var productsView = new List<ProductViewModel>();
+            foreach(var product in products)
+            {
+                var productView = new ProductViewModel
+                {
+                    Id = product.Id,
+                    Name = product.Name,
+                    Cost = product.Cost,
+                    Description = product.Description,
+                    ImgLink = product.ImgLink
+                };
+                productsView.Add(productView);
+            }
+            return View(productsView);
         }
 
         public IActionResult Privacy()

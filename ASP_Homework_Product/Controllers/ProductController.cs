@@ -1,5 +1,9 @@
-﻿using ASP_Homework_Product.Models;
+﻿using ASP_Homework_Product.Helpers;
+using ASP_Homework_Product.Models;
 using Microsoft.AspNetCore.Mvc;
+using OnlineShop.Db;
+using OnlineShop.Db.Models;
+using System;
 
 namespace ASP_Homework_Product.Controllers
 {
@@ -10,33 +14,33 @@ namespace ASP_Homework_Product.Controllers
         {
             _productRepository = productRepository;
         }
-        public IActionResult Index(int id)
+        public IActionResult Index(Guid id)
         {
             //ProductRepository catalog = new ProductRepository();
             Product product = _productRepository.GetProduct(id);
-            return View(product);
+            return View(Mapping.ToProductViewModel(product));
         }
-		public IActionResult Edit(int id)
+		public IActionResult Edit(Guid id)
 		{
 			Product product = _productRepository.GetProduct(id);
-			return View(product);
-		}
+            
+            return View(Mapping.ToProductViewModel(product));
+        }
 
 		public IActionResult Add()
 		{
 			return View();
 		}
 
-		public IActionResult Delete(int id)
+		public IActionResult Delete(Guid id)
 		{
 			_productRepository.Delete(id);
-			//return RedirectToAction("Products", "Admin");
-			return Redirect("/admin/admin/products");
+            return Redirect("/admin/admin/products");
 		}
 
 
 		[HttpPost]
-		public IActionResult ChangeProductInfo(int id, Product product)
+		public IActionResult ChangeProductInfo(Guid id, ProductViewModel product)
 		{
 			if (ModelState.IsValid)
 			{
@@ -49,14 +53,15 @@ namespace ASP_Homework_Product.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult NewProduct(Product product)
+		public IActionResult NewProduct(ProductViewModel product)
 		{
 			if(ModelState.IsValid)
 			{
-				Product newProduct = new Product(product.Name, product.Cost, product.Description, "#"); //этот продукст создается чтобы инициализировать unicId.
+				Product newProduct = new Product() { Name = product.Name,
+				Cost = product.Cost,
+				Description = product.Description, ImgLink = "#"}; //этот продукст создается чтобы инициализировать unicId.
 																										//Если передать product, то при переходе на стр товара выводится первый товар
 				_productRepository.Add(newProduct);
-                //return RedirectToAction("Products", "Admin");
                 return Redirect("/admin/admin/products");
             }
 			return View("Add");

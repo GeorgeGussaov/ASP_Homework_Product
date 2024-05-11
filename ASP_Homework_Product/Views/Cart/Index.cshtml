@@ -1,4 +1,4 @@
-﻿@model Cart
+﻿@model CartViewModel
 @{
     ViewData["Title"] = "Cart Page";
 }
@@ -17,7 +17,7 @@
                 <th>Кол-во копий</th>
                 <th>Стоимость, руб</th>
             </tr>
-            @foreach(CartItem item in Model.CartItems)
+            @foreach(CartItemViewModel item in Model.CartItems)
             {
                 <tr>
                     <td>@item.Product.Name</td>

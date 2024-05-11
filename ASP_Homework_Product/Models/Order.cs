@@ -20,7 +20,7 @@ namespace ASP_Homework_Product.Models
 		public string Email { get; set; }
 		[Required(ErrorMessage = "Укажите Адрес")]
 		public string Address { get; set; }
-        public Cart Cart { get; set; }
+        public CartViewModel Cart { get; set; }
         public string Date { get; }
         public string Time { get; }
         public OrderStatuses Status { get; set; }

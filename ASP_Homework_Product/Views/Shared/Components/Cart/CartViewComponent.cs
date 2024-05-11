@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ASP_Homework_Product.Helpers;
+using ASP_Homework_Product.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
+using OnlineShop.Db;
 
 namespace ASP_Homework_Product.Views.Shared.Components.Cart
 {
@@ -16,7 +19,8 @@ namespace ASP_Homework_Product.Views.Shared.Components.Cart
         public IViewComponentResult Invoke()
         {
             var cart = _cartRepository.TryGetByUId(_constants.GetUserId());
-            string cntProducts = cart?.Amount.ToString() ?? null;
+            var cartView = Mapping.ToCartViewModel(cart);
+            string cntProducts = cartView?.Amount.ToString() ?? null;
             return View("Cart", cntProducts);
         }
     }

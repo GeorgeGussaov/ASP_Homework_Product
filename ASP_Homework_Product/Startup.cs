@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OnlineShop.Db;
 using Serilog;
 
 namespace ASP_Homework_Product
@@ -23,8 +25,10 @@ namespace ASP_Homework_Product
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IProductRepository, InMemoryProductcRepository>();
-            services.AddSingleton<ICartsRepository, InMemoryCartsRepository>();
+            string connection = Configuration.GetConnectionString("online_shop");
+            services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connection));
+            services.AddTransient<IProductRepository, ProductsDbRepository>();
+            services.AddTransient<ICartsRepository, CartsDbRepository>();
             services.AddSingleton<IConstants, InMemoryConstants>();
             services.AddSingleton<IOrderRepository, InMemoryOrdersRepository>();
             services.AddSingleton<IRolesRepository, InMemoryRoles>();

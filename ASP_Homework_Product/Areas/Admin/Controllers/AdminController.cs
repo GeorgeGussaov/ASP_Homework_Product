@@ -1,6 +1,9 @@
-﻿using ASP_Homework_Product.Models;
+﻿using ASP_Homework_Product.Helpers;
+using ASP_Homework_Product.Models;
 using Microsoft.AspNetCore.Mvc;
+using OnlineShop.Db;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ASP_Homework_Product.Areas.Admin.Controllers
@@ -102,8 +105,20 @@ namespace ASP_Homework_Product.Areas.Admin.Controllers
         public IActionResult Products()
         {
             var products = _productRepository.GetProducts();
-
-            return View(products);
+            //var productsView = new List<ProductViewModel>();
+            //foreach (var product in products)
+            //{
+            //    var productView = new ProductViewModel
+            //    {
+            //        Id = product.Id,
+            //        Name = product.Name,
+            //        Cost = product.Cost,
+            //        Description = product.Description,
+            //        ImgLink = product.ImgLink
+            //    };
+            //    productsView.Add(productView);
+            //}
+            return View(Mapping.ToProductViewModels(products));
         }
 
         [HttpPost]

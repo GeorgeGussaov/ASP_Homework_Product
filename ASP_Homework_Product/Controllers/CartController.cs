@@ -1,5 +1,9 @@
-﻿using ASP_Homework_Product.Models;
+﻿using ASP_Homework_Product.Helpers;
+using ASP_Homework_Product.Models;
 using Microsoft.AspNetCore.Mvc;
+using OnlineShop.Db;
+using OnlineShop.Db.Models;
+using System;
 using System.Linq;
 namespace ASP_Homework_Product.Controllers
 {
@@ -17,17 +21,34 @@ namespace ASP_Homework_Product.Controllers
         public IActionResult Index()
         {
             var cart = _cartRepository.TryGetByUId(_constants.GetUserId());
-            return View(cart);
+            
+            return View(Mapping.ToCartViewModel(cart));
         }
-        public IActionResult Add(int productId)
+        public IActionResult Add(Guid productId)
         {
-            var product = _productRepository.GetProduct(productId);
+            Product product = _productRepository.GetProduct(productId);
+            //ProductViewModel productView = new ProductViewModel()
+            //{
+            //    Id = productId,
+            //    Name = product.Name,
+            //    Cost = product.Cost,
+            //    Description = product.Description,
+            //    ImgLink = product.ImgLink,
+            //};
             _cartRepository.Add(product, _constants.GetUserId());
             return RedirectToAction("Index");
         }
-        public IActionResult Delete(int productId)
+        public IActionResult Delete(Guid productId)
         {
             var product = _productRepository.GetProduct(productId);
+            //ProductViewModel productView = new ProductViewModel()
+            //{
+            //    Id= productId,
+            //    Name = product.Name,
+            //    Cost = product.Cost,
+            //    Description = product.Description,
+            //    ImgLink = product.ImgLink,
+            //};
             _cartRepository.Delete(product, _constants.GetUserId());
             return RedirectToAction("Index");
         }

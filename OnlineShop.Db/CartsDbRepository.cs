@@ -1,19 +1,26 @@
-﻿using ASP_Homework_Product.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using OnlineShop.Db.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 
-namespace ASP_Homework_Product
+namespace OnlineShop.Db
 {
-    public class InMemoryCartsRepository : ICartsRepository
+    public class CartsDbRepository : ICartsRepository
     {
-        private List<Cart> Carts = new List<Cart>();
-        public Cart TryGetByUId(Guid userId)
+        private readonly DatabaseContext _databaseContext;
+        public CartsDbRepository(DatabaseContext databaseContext)
         {
-            return Carts.FirstOrDefault(x => x.UserId == userId);
+            _databaseContext = databaseContext;
         }
 
+        //private List<Cart> Carts = new List<Cart>();
+
+        public Cart TryGetByUId(Guid userId)
+        {
+            return _databaseContext.Carts.Include(x=> x.CartItems).ThenInclude(x => x.Product).FirstOrDefault(x => x.UserId == userId);
+        }
         public void Add(Product product, Guid userId)
         {
             var CartIsExist = TryGetByUId(userId);
@@ -21,18 +28,17 @@ namespace ASP_Homework_Product
             {
                 Cart newCart = new Cart()
                 {
-                    Id = Guid.NewGuid(),
                     UserId = userId,
-                    CartItems = new List<CartItem>
-                    {
-                        new CartItem() {
-                            Id = Guid.NewGuid(),
-                            Product = product,
-                            Amount = 1
-                        }
+                };
+                newCart.CartItems = new List<CartItem>()
+                {
+                    new CartItem() {
+                        Product = product,
+                        Amount = 1,
+                        Cart=newCart
                     }
                 };
-                Carts.Add(newCart);
+                _databaseContext.Carts.Add(newCart);
             }
             else
             {
@@ -41,14 +47,15 @@ namespace ASP_Homework_Product
                 {
                     CartIsExist.CartItems.Add(new CartItem()
                     {
-                        Id = Guid.NewGuid(),
                         Product = product,
-                        Amount = 1
+                        Amount = 1,
+                        Cart=CartIsExist
                     });
                 }
                 else
                     CartItemIsExist.Amount++;
             }
+            _databaseContext.SaveChanges();
         }
 
         public void Delete(Product product, Guid userId)
@@ -57,12 +64,14 @@ namespace ASP_Homework_Product
             CartItem CartItem = Cart.CartItems.FirstOrDefault(pr => pr.Product.Id == product.Id);
             if(CartItem.Amount > 1) CartItem.Amount--;
             else Cart.CartItems.Remove(CartItem);
+            _databaseContext.SaveChanges();
         }
 
         public void Clear(Guid userId)
         {
             var Cart = TryGetByUId(userId);
-            Carts.Remove(Cart);
+            _databaseContext.Carts.Remove(Cart);
+            _databaseContext.SaveChanges();
         }
 
     }

@@ -1,5 +1,7 @@
-﻿using ASP_Homework_Product.Models;
+﻿using ASP_Homework_Product.Helpers;
+using ASP_Homework_Product.Models;
 using Microsoft.AspNetCore.Mvc;
+using OnlineShop.Db;
 
 namespace ASP_Homework_Product.Controllers
 {
@@ -25,8 +27,8 @@ namespace ASP_Homework_Product.Controllers
         {
             if(ModelState.IsValid)
             {
-				Cart cart = _cartRepository.TryGetByUId(_constants.GetUserId());
-				order.Cart = cart;
+				var cart = _cartRepository.TryGetByUId(_constants.GetUserId());
+				order.Cart = Mapping.ToCartViewModel(cart);
 				_orderRepository.Add(order);
 				_cartRepository.Clear(_constants.GetUserId());
 				return View(order);
