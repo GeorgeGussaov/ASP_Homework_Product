@@ -63,5 +63,17 @@ namespace ASP_Homework_Product.Helpers
                 CartItems = ToCartItemViewModels(cart.CartItems)
             };
         }
+
+        public static WishlistViewModel ToWishlistViewModel(Wishlist wishlist)
+        {
+            if(wishlist == null) return null;
+            var viewModel = new WishlistViewModel()
+            {
+                UserId = wishlist.UserId,
+                Id = wishlist.Id,
+                WishListItems = ToProductViewModels(wishlist.WishListItems)
+            };
+            return viewModel;
+        }
     }
 }

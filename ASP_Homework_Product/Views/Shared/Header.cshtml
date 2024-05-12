@@ -27,6 +27,9 @@
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="Admin" asp-controller="Admin" asp-action="Index">Администратор</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Wishlist" asp-action="Index">Избранное</a>
+                    </li>
                     <li class="nav-item Cart">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index"><img class="CartImg" src="~/images/cart.png"> @await Component.InvokeAsync("Cart")</a>
                     </li>

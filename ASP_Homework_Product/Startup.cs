@@ -29,6 +29,7 @@ namespace ASP_Homework_Product
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connection));
             services.AddTransient<IProductRepository, ProductsDbRepository>();
             services.AddTransient<ICartsRepository, CartsDbRepository>();
+            services.AddTransient<IWishlistRepository, WishlistsDbRepository>();
             services.AddSingleton<IConstants, InMemoryConstants>();
             services.AddSingleton<IOrderRepository, InMemoryOrdersRepository>();
             services.AddSingleton<IRolesRepository, InMemoryRoles>();

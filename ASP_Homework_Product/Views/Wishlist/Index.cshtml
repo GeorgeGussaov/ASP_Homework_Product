@@ -1,0 +1,26 @@
+﻿@model WishlistViewModel
+
+@if(Model == null || Model.WishListItems.Count == 0)
+{
+	<div class="text-center"><h2>Список желаемого пуст</h2></div>
+}
+else
+{
+	<div class="text-center"><h2>Список желаемого</h2></div>
+	<table class="table">
+		<tr>
+			<th>Название</th>
+			<th>Цена</th>
+		</tr>
+		@foreach(var item in Model.WishListItems)
+		{
+			<tr>
+				<td>@item.Name</td>
+				<td>@item.Cost</td>
+				<td><a asp-controller="Product" asp-action="Index" asp-route-id="@item.Id" class="btn btn-primary">Подробнее</a></td>
+				<td><a asp-controller="Cart" asp-action="Add" asp-route-productId="@item.Id" class="btn btn-success">Добваить в корзину</a></td>
+				<td><a asp-controller="Wishlist" asp-action="Delete" asp-route-productId="@item.Id" class="btn btn-danger">Удалить</a></td>
+			</tr>
+		}
+	</table>
+}

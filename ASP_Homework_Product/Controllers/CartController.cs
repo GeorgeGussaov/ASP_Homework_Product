@@ -26,7 +26,7 @@ namespace ASP_Homework_Product.Controllers
         }
         public IActionResult Add(Guid productId)
         {
-            Product product = _productRepository.GetProduct(productId);
+            Product product = _productRepository.GetProductById(productId);
             //ProductViewModel productView = new ProductViewModel()
             //{
             //    Id = productId,
@@ -40,7 +40,7 @@ namespace ASP_Homework_Product.Controllers
         }
         public IActionResult Delete(Guid productId)
         {
-            var product = _productRepository.GetProduct(productId);
+            var product = _productRepository.GetProductById(productId);
             //ProductViewModel productView = new ProductViewModel()
             //{
             //    Id= productId,

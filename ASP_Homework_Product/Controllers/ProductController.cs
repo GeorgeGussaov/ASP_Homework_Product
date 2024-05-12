@@ -17,12 +17,12 @@ namespace ASP_Homework_Product.Controllers
         public IActionResult Index(Guid id)
         {
             //ProductRepository catalog = new ProductRepository();
-            Product product = _productRepository.GetProduct(id);
+            Product product = _productRepository.GetProductById(id);
             return View(Mapping.ToProductViewModel(product));
         }
 		public IActionResult Edit(Guid id)
 		{
-			Product product = _productRepository.GetProduct(id);
+			Product product = _productRepository.GetProductById(id);
             
             return View(Mapping.ToProductViewModel(product));
         }

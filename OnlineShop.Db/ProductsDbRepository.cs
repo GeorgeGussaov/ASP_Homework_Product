@@ -21,7 +21,7 @@ namespace OnlineShop.Db
         //        new Product("God of war", 2990 , "God of War (с англ. — «Бог войны») — компьютерная игра в жанре action-adventure, разработанная компанией SIE Santa Monica Studio и изданная Sony Interactive Entertainment для игровой консоли PlayStation 4, а затем на Windows. Вышла 20 апреля 2018 года. Является восьмой игрой серии God of War, а также сиквелом к игре 2010 года God of War III. Игра продолжает события предыдущих игр и переносит серию в мир скандинавской мифологии — все предыдущие игры серии были основаны на греческой мифологии. 16 сентября 2020 года было анонсировано продолжение игры.", "/images/GOW.webp")
         //};
         
-        public Product GetProduct(Guid id)
+        public Product GetProductById(Guid id)
         {
             foreach (Product p in _databaseContext.Products.ToList())
             {
@@ -50,7 +50,7 @@ namespace OnlineShop.Db
 
         public void Delete(Guid id)
         {
-            Product product = GetProduct(id);
+            Product product = GetProductById(id);
             _databaseContext.Products.Remove(product);
             _databaseContext.SaveChanges();
         }
@@ -69,7 +69,7 @@ namespace OnlineShop.Db
 
     public interface IProductRepository
     {
-        public Product GetProduct(Guid id);
+        public Product GetProductById(Guid id);
         public List<Product> GetProducts();
         public void ChangeProduct(Guid id, string newName, decimal newCost, string newDescription);
         public void Delete(Guid id);
