@@ -27,28 +27,12 @@ namespace ASP_Homework_Product.Controllers
         public IActionResult Add(Guid productId)
         {
             Product product = _productRepository.GetProductById(productId);
-            //ProductViewModel productView = new ProductViewModel()
-            //{
-            //    Id = productId,
-            //    Name = product.Name,
-            //    Cost = product.Cost,
-            //    Description = product.Description,
-            //    ImgLink = product.ImgLink,
-            //};
             _cartRepository.Add(product, _constants.GetUserId());
             return RedirectToAction("Index");
         }
         public IActionResult Delete(Guid productId)
         {
             var product = _productRepository.GetProductById(productId);
-            //ProductViewModel productView = new ProductViewModel()
-            //{
-            //    Id= productId,
-            //    Name = product.Name,
-            //    Cost = product.Cost,
-            //    Description = product.Description,
-            //    ImgLink = product.ImgLink,
-            //};
             _cartRepository.Delete(product, _constants.GetUserId());
             return RedirectToAction("Index");
         }

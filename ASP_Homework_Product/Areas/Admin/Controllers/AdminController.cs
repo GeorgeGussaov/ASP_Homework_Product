@@ -2,6 +2,7 @@
 using ASP_Homework_Product.Models;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
+using OnlineShop.Db.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,12 +33,12 @@ namespace ASP_Homework_Product.Areas.Admin.Controllers
         public IActionResult Orders()
         {
             var orders = _orderRepository.GetOrders();
-            return View(orders);
+            return View(Mapping.ToOrdersViewModel(orders));
         }
         public IActionResult EditOrderStatus(int id)
         {
             var order = _orderRepository.GetOrders()[id];
-            return View(order);
+            return View(Mapping.ToOrderViewModel(order));
         }
 
 
@@ -122,10 +123,11 @@ namespace ASP_Homework_Product.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult ChangeStatus(Guid id, OrderStatuses status)
+        public IActionResult ChangeStatus(Guid id, /*Models.OrderStatuses*/ OnlineShop.Db.Models.OrderStatuses status)
         {
-            var order = _orderRepository.TryGetById(id);
-            order.Status = status;
+            //var order = _orderRepository.TryGetById(id);
+            //order.Status = (OnlineShop.Db.Models.OrderStatuses)status;
+            _orderRepository.ChangeStatus(id, status);
             return RedirectToAction("Orders");
         }
 

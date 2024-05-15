@@ -19,7 +19,7 @@ namespace OnlineShop.Db
 
         public Cart TryGetByUId(Guid userId)
         {
-            return _databaseContext.Carts.Include(x=> x.CartItems).ThenInclude(x => x.Product).FirstOrDefault(x => x.UserId == userId);
+            return _databaseContext.Carts.Include(x => x.CartItems).ThenInclude(x => x.Product).FirstOrDefault(x => x.UserId == userId);
         }
         public void Add(Product product, Guid userId)
         {
@@ -35,10 +35,10 @@ namespace OnlineShop.Db
                     new CartItem() {
                         Product = product,
                         Amount = 1,
-                        Cart=newCart
+                        //Cart=newCart
                     }
                 };
-                _databaseContext.Carts.Add(newCart);
+                _databaseContext.Carts.Update(newCart);
             }
             else
             {
@@ -49,7 +49,7 @@ namespace OnlineShop.Db
                     {
                         Product = product,
                         Amount = 1,
-                        Cart=CartIsExist
+                        //Cart=CartIsExist
                     });
                 }
                 else

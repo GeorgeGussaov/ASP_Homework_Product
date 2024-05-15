@@ -31,7 +31,7 @@ namespace ASP_Homework_Product
             services.AddTransient<ICartsRepository, CartsDbRepository>();
             services.AddTransient<IWishlistRepository, WishlistsDbRepository>();
             services.AddSingleton<IConstants, InMemoryConstants>();
-            services.AddSingleton<IOrderRepository, InMemoryOrdersRepository>();
+            services.AddTransient<IOrderRepository, OrdersDbRepository>();
             services.AddSingleton<IRolesRepository, InMemoryRoles>();
             services.AddControllersWithViews();
         }
