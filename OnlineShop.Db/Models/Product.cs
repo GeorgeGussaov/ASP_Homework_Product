@@ -16,6 +16,13 @@ namespace OnlineShop.Db.Models
         {
             CartItems = new List<CartItem>();
         }
-
-    }
+		public Product(string name, decimal cost, string description, string imgLink)
+		{
+			Id = Guid.NewGuid();
+			Name = name;
+			Cost = cost;
+			Description = description;
+			ImgLink = imgLink;
+		}
+	}
 }
